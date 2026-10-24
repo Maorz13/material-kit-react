@@ -7,6 +7,7 @@ import { config } from '@/config';
 import { Budget } from '@/components/dashboard/overview/budget';
 import { LatestOrders } from '@/components/dashboard/overview/latest-orders';
 import { LatestProducts } from '@/components/dashboard/overview/latest-products';
+import { RevenueThisMonth } from '@/components/dashboard/overview/revenue-this-month';
 import { Sales } from '@/components/dashboard/overview/sales';
 import { TasksProgress } from '@/components/dashboard/overview/tasks-progress';
 import { TotalCustomers } from '@/components/dashboard/overview/total-customers';
@@ -20,7 +21,7 @@ export default function Page(): React.JSX.Element {
     <Grid container spacing={3}>
       <Grid
         size={{
-          lg: 3,
+          lg: 2.4,
           sm: 6,
           xs: 12,
         }}
@@ -29,7 +30,7 @@ export default function Page(): React.JSX.Element {
       </Grid>
       <Grid
         size={{
-          lg: 3,
+          lg: 2.4,
           sm: 6,
           xs: 12,
         }}
@@ -38,7 +39,7 @@ export default function Page(): React.JSX.Element {
       </Grid>
       <Grid
         size={{
-          lg: 3,
+          lg: 2.4,
           sm: 6,
           xs: 12,
         }}
@@ -47,12 +48,21 @@ export default function Page(): React.JSX.Element {
       </Grid>
       <Grid
         size={{
-          lg: 3,
+          lg: 2.4,
           sm: 6,
           xs: 12,
         }}
       >
         <TotalProfit sx={{ height: '100%' }} value="$15k" />
+      </Grid>
+      <Grid
+        size={{
+          lg: 2.4,
+          sm: 6,
+          xs: 12,
+        }}
+      >
+        <RevenueThisMonth diff={8} trend="up" sx={{ height: '100%' }} value="$48.2k" />
       </Grid>
       <Grid
         size={{
