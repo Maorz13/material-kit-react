@@ -6,6 +6,9 @@ import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import Divider from '@mui/material/Divider';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
@@ -15,6 +18,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { EyeIcon } from '@phosphor-icons/react/dist/ssr/Eye';
 import { EyeSlashIcon } from '@phosphor-icons/react/dist/ssr/EyeSlash';
+import { GoogleLogoIcon } from '@phosphor-icons/react/dist/ssr/GoogleLogo';
 import { Controller, useForm } from 'react-hook-form';
 import { z as zod } from 'zod';
 
@@ -25,11 +29,12 @@ import { useUser } from '@/hooks/use-user';
 const schema = zod.object({
   email: zod.string().min(1, { message: 'Email is required' }).email(),
   password: zod.string().min(1, { message: 'Password is required' }),
+  rememberMe: zod.boolean(),
 });
 
 type Values = zod.infer<typeof schema>;
 
-const defaultValues = { email: 'sofia@devias.io', password: 'Secret1' } satisfies Values;
+const defaultValues = { email: 'sofia@devias.io', password: 'Secret1', rememberMe: true } satisfies Values;
 
 export function SignInForm(): React.JSX.Element {
   const router = useRouter();
@@ -69,6 +74,17 @@ export function SignInForm(): React.JSX.Element {
     [checkSession, router, setError]
   );
 
+  const onGoogleSignIn = React.useCallback(async (): Promise<void> => {
+    setIsPending(true);
+
+    const { error } = await authClient.signInWithOAuth({ provider: 'google' });
+
+    if (error) {
+      setError('root', { type: 'server', message: error });
+      setIsPending(false);
+    }
+  }, [setError]);
+
   return (
     <Stack spacing={4}>
       <Stack spacing={1}>
@@ -79,6 +95,22 @@ export function SignInForm(): React.JSX.Element {
             Sign up
           </Link>
         </Typography>
+      </Stack>
+      <Stack spacing={2}>
+        <Button
+          color="secondary"
+          disabled={isPending}
+          onClick={onGoogleSignIn}
+          startIcon={<GoogleLogoIcon fontSize="var(--icon-fontSize-md)" />}
+          variant="outlined"
+        >
+          Sign in with Google
+        </Button>
+        <Divider>
+          <Typography color="text.secondary" variant="body2">
+            or
+          </Typography>
+        </Divider>
       </Stack>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
@@ -125,6 +157,16 @@ export function SignInForm(): React.JSX.Element {
                 />
                 {errors.password ? <FormHelperText>{errors.password.message}</FormHelperText> : null}
               </FormControl>
+            )}
+          />
+          <Controller
+            control={control}
+            name="rememberMe"
+            render={({ field }) => (
+              <FormControlLabel
+                control={<Checkbox checked={field.value} name={field.name} onChange={field.onChange} />}
+                label="Remember me"
+              />
             )}
           />
           <div>

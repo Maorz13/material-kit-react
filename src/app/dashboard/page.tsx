@@ -1,6 +1,7 @@
 import * as React from 'react';
 import type { Metadata } from 'next';
 import Grid from '@mui/material/Grid';
+import { ChartLineUpIcon } from '@phosphor-icons/react/dist/ssr/ChartLineUp';
 import dayjs from 'dayjs';
 
 import { config } from '@/config';
@@ -20,7 +21,7 @@ export default function Page(): React.JSX.Element {
     <Grid container spacing={3}>
       <Grid
         size={{
-          lg: 3,
+          lg: 2.4,
           sm: 6,
           xs: 12,
         }}
@@ -29,7 +30,7 @@ export default function Page(): React.JSX.Element {
       </Grid>
       <Grid
         size={{
-          lg: 3,
+          lg: 2.4,
           sm: 6,
           xs: 12,
         }}
@@ -38,7 +39,7 @@ export default function Page(): React.JSX.Element {
       </Grid>
       <Grid
         size={{
-          lg: 3,
+          lg: 2.4,
           sm: 6,
           xs: 12,
         }}
@@ -47,12 +48,30 @@ export default function Page(): React.JSX.Element {
       </Grid>
       <Grid
         size={{
-          lg: 3,
+          lg: 2.4,
           sm: 6,
           xs: 12,
         }}
       >
         <TotalProfit sx={{ height: '100%' }} value="$15k" />
+      </Grid>
+      <Grid
+        size={{
+          lg: 2.4,
+          sm: 6,
+          xs: 12,
+        }}
+      >
+        <Budget
+          diff={8}
+          diffLabel="vs last month"
+          icon={<ChartLineUpIcon fontSize="var(--icon-fontSize-lg)" />}
+          iconColor="var(--mui-palette-info-main)"
+          sx={{ height: '100%' }}
+          title="Revenue this month"
+          trend="up"
+          value="$48.2k"
+        />
       </Grid>
       <Grid
         size={{
