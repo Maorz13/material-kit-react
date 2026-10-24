@@ -104,7 +104,7 @@ export function SignInForm(): React.JSX.Element {
           startIcon={<GoogleLogoIcon fontSize="var(--icon-fontSize-md)" />}
           variant="outlined"
         >
-          Continue with Google
+          Sign in with Google
         </Button>
         <Divider>
           <Typography color="text.secondary" variant="body2">
