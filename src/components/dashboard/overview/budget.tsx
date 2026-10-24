@@ -14,9 +14,22 @@ export interface BudgetProps {
   trend: 'up' | 'down';
   sx?: SxProps;
   value: string;
+  title?: string;
+  icon?: React.ReactNode;
+  iconColor?: string;
+  diffLabel?: string;
 }
 
-export function Budget({ diff, trend, sx, value }: BudgetProps): React.JSX.Element {
+export function Budget({
+  diff,
+  trend,
+  sx,
+  value,
+  title = 'Budget',
+  icon = <CurrencyDollarIcon fontSize="var(--icon-fontSize-lg)" />,
+  iconColor = 'var(--mui-palette-primary-main)',
+  diffLabel = 'Since last month',
+}: BudgetProps): React.JSX.Element {
   const TrendIcon = trend === 'up' ? ArrowUpIcon : ArrowDownIcon;
   const trendColor = trend === 'up' ? 'var(--mui-palette-success-main)' : 'var(--mui-palette-error-main)';
 
@@ -27,12 +40,12 @@ export function Budget({ diff, trend, sx, value }: BudgetProps): React.JSX.Eleme
           <Stack direction="row" sx={{ alignItems: 'flex-start', justifyContent: 'space-between' }} spacing={3}>
             <Stack spacing={1}>
               <Typography color="text.secondary" variant="overline">
-                Budget
+                {title}
               </Typography>
               <Typography variant="h4">{value}</Typography>
             </Stack>
-            <Avatar sx={{ backgroundColor: 'var(--mui-palette-primary-main)', height: '56px', width: '56px' }}>
-              <CurrencyDollarIcon fontSize="var(--icon-fontSize-lg)" />
+            <Avatar sx={{ backgroundColor: iconColor, height: '56px', width: '56px' }}>
+              {icon}
             </Avatar>
           </Stack>
           {diff ? (
@@ -44,7 +57,7 @@ export function Budget({ diff, trend, sx, value }: BudgetProps): React.JSX.Eleme
                 </Typography>
               </Stack>
               <Typography color="text.secondary" variant="caption">
-                Since last month
+                {diffLabel}
               </Typography>
             </Stack>
           ) : null}

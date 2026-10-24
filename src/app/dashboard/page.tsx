@@ -1,13 +1,13 @@
 import * as React from 'react';
 import type { Metadata } from 'next';
 import Grid from '@mui/material/Grid';
+import { ChartLineUpIcon } from '@phosphor-icons/react/dist/ssr/ChartLineUp';
 import dayjs from 'dayjs';
 
 import { config } from '@/config';
 import { Budget } from '@/components/dashboard/overview/budget';
 import { LatestOrders } from '@/components/dashboard/overview/latest-orders';
 import { LatestProducts } from '@/components/dashboard/overview/latest-products';
-import { RevenueThisMonth } from '@/components/dashboard/overview/revenue-this-month';
 import { Sales } from '@/components/dashboard/overview/sales';
 import { TasksProgress } from '@/components/dashboard/overview/tasks-progress';
 import { TotalCustomers } from '@/components/dashboard/overview/total-customers';
@@ -62,7 +62,16 @@ export default function Page(): React.JSX.Element {
           xs: 12,
         }}
       >
-        <RevenueThisMonth diff={8} trend="up" sx={{ height: '100%' }} value="$48.2k" />
+        <Budget
+          diff={8}
+          diffLabel="vs last month"
+          icon={<ChartLineUpIcon fontSize="var(--icon-fontSize-lg)" />}
+          iconColor="var(--mui-palette-info-main)"
+          sx={{ height: '100%' }}
+          title="Revenue this month"
+          trend="up"
+          value="$48.2k"
+        />
       </Grid>
       <Grid
         size={{
